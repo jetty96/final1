@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0oufsdl" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.21.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.20.0">
+  <bpmn:process id="External" name="External" isExecutable="true" camunda:historyTimeToLive="P10D">
+    <bpmn:startEvent id="StartEvent_1" name="Start" camunda:initiator="starter">
+      <bpmn:outgoing>Flow_1ievq61</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1ievq61" sourceRef="StartEvent_1" targetRef="UserTask1" />
+    <bpmn:endEvent id="Event_1uymap5" name="End">
+      <bpmn:incoming>Flow_1599dep</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1599dep" sourceRef="Activity_08tmy1v" targetRef="Event_1uymap5" />
+    <bpmn:userTask id="Activity_08tmy1v" name="UserTaskSetAssigneeCheck" camunda:assignee="${assignee}" >
+      <bpmn:extensionElements>
+        <camunda:taskListener class="com.example.workflow.MyTaskListener" event="create" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1qfy826</bpmn:incoming>
+      <bpmn:outgoing>Flow_1599dep</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1qfy826" sourceRef="UserTask1" targetRef="Activity_08tmy1v" />
+    <bpmn:userTask id="UserTask1" name="UserTask1" camunda:assignee="${starter}">
+<!--       <bpmn:extensionElements> -->
+<!--        <camunda:taskListener class="com.example.workflow.MyTaskListener" event="complete" /> -->
+<!--       </bpmn:extensionElements> -->
+      <bpmn:incoming>Flow_1ievq61</bpmn:incoming>
+      <bpmn:outgoing>Flow_1qfy826</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="External">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="112" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="118" y="145" width="24" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0hpu9qv_di" bpmnElement="Activity_08tmy1v">
+        <dc:Bounds x="360" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1uymap5_di" bpmnElement="Event_1uymap5">
+        <dc:Bounds x="522" y="112" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="530" y="155" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1s39iaz_di" bpmnElement="UserTask1">
+        <dc:Bounds x="200" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1ievq61_di" bpmnElement="Flow_1ievq61">
+        <di:waypoint x="148" y="120" />
+        <di:waypoint x="200" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1599dep_di" bpmnElement="Flow_1599dep">
+        <di:waypoint x="460" y="130" />
+        <di:waypoint x="522" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1qfy826_di" bpmnElement="Flow_1qfy826">
+        <di:waypoint x="300" y="120" />
+        <di:waypoint x="360" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
